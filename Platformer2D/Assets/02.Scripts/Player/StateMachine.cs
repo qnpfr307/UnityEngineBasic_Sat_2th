@@ -128,7 +128,20 @@ public class StateMachine : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftAlt))
             ChangeState(StateType.Jump);
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            ChangeState(StateType.Crouch);
+
+        if(isStateChanged == false)
+        {
+            if (Input.GetKey(KeyCode.LeftAlt))
+                isStateChanged = ChangeState(StateType.Jump);
+            else if (Input.GetKey(KeyCode.DownArrow))
+                isStateChanged = ChangeState(StateType.Crouch);
+            else if (Input.GetKey(KeyCode.A))
+                isStateChanged = ChangeState(StateType.Attack);
+        }
     }
+
     private void FixedUpdate()
     {
         _currentState.FixedUpdate();

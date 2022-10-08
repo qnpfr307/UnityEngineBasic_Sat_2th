@@ -38,7 +38,7 @@
                 break;
             case IState.Commands.Prepare:
                 {
-                    Animator.Play("Idle");
+                    AnimationManager.Play("Idle");
                     MoveNext();
                 }
                 break;

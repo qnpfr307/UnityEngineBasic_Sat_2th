@@ -6,13 +6,13 @@ public abstract class StateBase : IState
 {
     protected StateMachine.StateType MachineType;
     protected StateMachine Machine;
-    protected Animator Animator;
+    protected AnimationManager AnimationManager;
     protected CharacterBase Character;
     public StateBase(StateMachine.StateType machineType, StateMachine machine)
     {
         MachineType = machineType;
         Machine = machine;
-        Animator = Machine.GetComponent<Animator>();
+        AnimationManager = Machine.GetComponent<AnimationManager>();
         Character = Machine.GetComponent<CharacterBase>();
     }
 

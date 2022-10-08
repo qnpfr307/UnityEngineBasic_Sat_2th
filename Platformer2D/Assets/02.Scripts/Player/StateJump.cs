@@ -14,11 +14,17 @@ public class StateJump : StateBase
                                         (Machine.Current == StateMachine.StateType.Idle ||
                                          Machine.Current == StateMachine.StateType.Move);
 
+
     public override void Execute()
     {
         Current = IState.Commands.Prepare;
         Machine.IsDirectionChangable = true;
         Machine.IsMovable = false;
+
+        if (Machine.Current != StateMachine.StateType.Crouch && _groundDetector.IsUnderGroundexist = true)
+            _isDownJump = true;
+        else
+            _isDownJump = false;
     }
 
     public override void FixedUpdate()
@@ -29,6 +35,12 @@ public class StateJump : StateBase
     public override void ForceStop()
     {
         Current = IState.Commands.Idle;
+        _isDownJump = false;
+    }
+
+    public override StateMachine.StateType Update ()
+    {
+
     }
 
     public override void MoveNext()
@@ -46,7 +58,7 @@ public class StateJump : StateBase
                 break;
             case IState.Commands.Prepare:
                 {
-                    Animator.Play("Jump");
+                    AnimationManager.Play("Jump");
                     _rb.velocity = new Vector2(_rb.velocity.x, 0.0f);
                     _rb.AddForce(Vector2.up * Character.JumpForce, ForceMode2D.Impulse);
                     MoveNext();
@@ -70,6 +82,51 @@ public class StateJump : StateBase
                     if (_groundDetector.IsDetected)
                         next = StateMachine.StateType.Idle;
                     else
+                        next = StateMachine.StateType.Fall;
+                }
+                break;
+            default:
+                break;
+        }
+
+        return next;
+    }
+
+    private StateMachine.StateType JumpWorkflow()
+    {
+        StateMachine.StateType next = MachineType;
+    }
+
+    private StateMachine.StateType DownJumpWorkflow()
+    {
+        StateMachine.StateType next = MachineType;
+
+        switch (Current)
+        {
+            case IState.Commands.Idle:
+                break;
+            case IState.Commands.Prepare:
+                {
+                    AnimationManager.Play("Jump");
+                    _groundDetector.IgnoreCurrentGround();
+                    _rb.velocity = new Vector2 (_rb.velocity.x, 0.0f);
+                    _rb.AddForce(_rb.velocity);
+
+                }
+                break;
+            case IState.Commands.Casting:
+                {
+                    MoveNext;
+                }
+                break;
+            case IState.Commands.OnAction:
+                {
+                    if (_rb.velocity.y < 0.0f)
+                        MoveNext;
+                }
+                break;
+            case IState.Commands.Finish:
+                {
                         next = StateMachine.StateType.Fall;
                 }
                 break;
