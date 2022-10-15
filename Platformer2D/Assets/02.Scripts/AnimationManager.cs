@@ -7,6 +7,11 @@ public class AnimationManager : MonoBehaviour
     private Animator _animator;
 
     public bool IsCastingFinished { get; private set; }
+    public float Speed
+    {   
+        get => _animator.speed;
+        set => _animator.speed = value;
+    }
 
     public void OnCastingFinished()
     {
@@ -26,6 +31,6 @@ public class AnimationManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        _animator = GetComponent<Animator>();
     }
 }

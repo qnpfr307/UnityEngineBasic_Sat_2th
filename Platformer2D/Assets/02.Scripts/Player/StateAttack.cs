@@ -56,7 +56,11 @@ public class StateAttack : StateBase
                     {
                         Physics2D.BoxCast(Machine.transform + Vector3.right * Machine.Direction * _boxcastCenter, 0, _boxcastSize, 0, Vector2.zero, 0, _enemyLayer);
 
-                        if(hit.collider)
+                        if(hit.collider != null)
+                        {
+                            hit.collider.GetComponent<Enemy>().Hurt(Character.ATK);
+                            hit.collider.GetComponent<Enemy>().knockback
+                        }
 
                     }
                 }

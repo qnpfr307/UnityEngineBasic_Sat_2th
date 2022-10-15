@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
         Attack,
         Jump,
         Fall,
+        Crouch
     }
 
     public enum JumpStates

@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class StateCrouch : StateBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void FixedUpdate()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
